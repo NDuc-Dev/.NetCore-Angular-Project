@@ -18,14 +18,42 @@ public class ProductRepository(StoreContext context) : IProductRepository
         context.Products.Remove(product);
     }
 
+    public async Task<IReadOnlyList<string>> GetBrandsAsync()
+    {
+        return await context.Products.Select(p => p.Brand).Distinct().ToListAsync();
+    }
+
     public async Task<Product?> GetProductByIdAsync(int id)
     {
         return await context.Products.FindAsync(id);
     }
 
-    public async Task<IReadOnlyList<Product>> GetProductsAsync()
+    public async Task<IReadOnlyList<Product>> GetProductsAsync(string? brands,
+            string? types, string? sort)
     {
-        return await context.Products.ToListAsync();
+        var query = context.Products.AsQueryable();
+        if (!string.IsNullOrEmpty(brands))
+        {
+            query = query.Where(p => p.Brand == brands);
+        }
+        if (!string.IsNullOrEmpty(types))
+        {
+            query = query.Where(p => p.Type == types);
+        }
+        query = sort switch
+        {
+            "priceAsc" => query.OrderBy(p => p.Price),
+            "priceDesc" => query.OrderByDescending(p => p.Price),
+            _ => query.OrderBy(p => p.ProductName)
+        };
+
+        return await query.ToListAsync();
+    }
+
+    public async Task<IReadOnlyList<string>> GetTypesAsync()
+    {
+        return await context.Products.Select(p => p.Type).Distinct().ToListAsync();
+
     }
 
     public bool ProductExists(int id)
