@@ -2,7 +2,7 @@ using System;
 
 namespace Core.Entities;
 
-public class Product : BaseEntities
+public class Product : BaseEntity
 {
     public required string ProductName { get; set; }
     public required string Descriptions { get; set; }
@@ -13,3 +13,5 @@ public class Product : BaseEntities
     public int QuantityInStock { get; set; }
 
 }
+
+
