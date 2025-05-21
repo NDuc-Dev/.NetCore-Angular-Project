@@ -51,7 +51,8 @@ public class GenericRepository<T>(StoreContext context) : IGenericRepository<T> 
 
     public async Task<IReadOnlyList<TResult>> ListAsync<TResult>(ISpecification<T, TResult> spec)
     {
-        return await ApplySpecification(spec).ToListAsync();
+        var query = ApplySpecification(spec);
+        return await query.ToListAsync();
     }
 
     public void Remove(T entity)

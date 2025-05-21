@@ -68,7 +68,6 @@ public class ProductsController(IGenericRepository<Product> repo) : BaseApiContr
     [HttpGet("brands")]
     public async Task<ActionResult<IReadOnlyList<string>>> GetBrands()
     {
-        //TODO: Implement method
         var spec = new BrandListSpecification();
         var brands = await repo.ListAsync(spec);
         return Ok(brands);

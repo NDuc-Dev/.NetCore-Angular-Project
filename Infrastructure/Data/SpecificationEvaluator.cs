@@ -50,11 +50,11 @@ public class SpecificationEvaluator<T> where T : BaseEntity
         {
             selectQuery = query.Select(spec.Select);
         }
-
         if (spec.IsDistinct)
         {
             selectQuery = selectQuery?.Distinct();
         }
+        if (spec.IsPagingEnabled)
         {
             selectQuery = selectQuery?.Skip(spec.Skip).Take(spec.Take);
         }
