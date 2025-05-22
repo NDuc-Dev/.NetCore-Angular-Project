@@ -4,6 +4,7 @@ import { MatCard, MatCardActions, MatCardContent } from '@angular/material/card'
 import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { CurrencyFormatPipe } from '../../../shared/pipes/currency-format.pipe';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-product-item',
@@ -13,7 +14,8 @@ import { CurrencyFormatPipe } from '../../../shared/pipes/currency-format.pipe';
     CurrencyFormatPipe,
     MatCardActions,
     MatButton,
-    MatIcon
+    MatIcon,
+    RouterLink
   ],
   templateUrl: './product-item.component.html',
   styleUrl: './product-item.component.scss'
